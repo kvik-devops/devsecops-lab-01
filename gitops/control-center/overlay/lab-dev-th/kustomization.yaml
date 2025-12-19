@@ -12,4 +12,3 @@ resources:
   - app/backend
   - app/frontend
   - app/consumer
-  - app/init-job.yaml

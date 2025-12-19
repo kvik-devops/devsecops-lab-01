@@ -3,6 +3,7 @@ kind: Kustomization
 namespace: consumer
 resources:
   - deployment.yaml
+  - init-job.yaml
 
 configMapGenerator:
 - name: app-config
