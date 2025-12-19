@@ -106,32 +106,32 @@ location path : `gitops/control-center`
 │   └── kustomization.yaml
 └── overlay/                            # Overlay on each cluster
     └── lab-dev-th/                     # Can separate into multiple clusters, environments, regions
-       ├── app/                         # UI (Deployment, Service, Ingress)
-       │  ├── backend/                  # UI (Deployment, Service, Ingress)
-       │  │  ├── deployment.yaml        # UI (Deployment, Service, Ingress)
-       │  │  ├── ingress.yaml           # UI (Deployment, Service, Ingress)
-       │  │  ├── kustomization.yaml
-       │  │  └── service.yaml           # UI (Deployment, Service, Ingress)
-       │  ├── consumer/                 # UI (Deployment, Service, Ingress)
-       │  │  ├── deployment.yaml        # UI (Deployment, Service, Ingress)
-       │  │  ├── init-job.yaml          # UI (Deployment, Service, Ingress)
-       │  │  ├── kustomization.yaml
-       │  └── frontend/                 # UI (Deployment, Service, Ingress)
-       │     ├── deployment.yaml        # UI (Deployment, Service, Ingress)
-       │     ├── ingress.yaml           # UI (Deployment, Service, Ingress)
-       │     ├── kustomization.yaml
-       │     └── service.yaml           # UI (Deployment, Service, Ingress)
-       ├── argocd/                      # UI (Deployment, Service, Ingress)
-       │  └── ingress.yaml              # UI (Deployment, Service, Ingress)
-       ├── kafka/                       # UI (Deployment, Service, Ingress)
-       │  ├── kafka-cluster.yaml        # UI (Deployment, Service, Ingress)
-       │  ├── kafka-nodepool.yaml       # UI (Deployment, Service, Ingress)
-       │  ├── kafka-ui.yaml             # UI (Deployment, Service, Ingress)
-       │  └── topics.yaml               # UI (Deployment, Service, Ingress)
-       ├── postgres/                    # UI (Deployment, Service, Ingress)
-       │  ├── pgadmin.yaml              # UI (Deployment, Service, Ingress)
-       │  └── postgres.yaml             # UI (Deployment, Service, Ingress)
-       └── kustomization.yaml
+       ├── app/                         # Application list (in the future each directory can be repository)
+       │  ├── backend/                  # App: backend
+       │  │  ├── deployment.yaml
+       │  │  ├── ingress.yaml
+       │  │  ├── kustomization.yaml     # Manage apps, configs, secrets
+       │  │  └── service.yaml
+       │  ├── consumer/
+       │  │  ├── deployment.yaml        # App: consumer
+       │  │  ├── init-job.yaml          # Job: initial database
+       │  │  ├── kustomization.yaml     # Manage apps, configs, secrets
+       │  └── frontend/                 # App: frontend
+       │     ├── deployment.yaml
+       │     ├── ingress.yaml
+       │     ├── kustomization.yaml     # Manage apps
+       │     └── service.yaml
+       ├── argocd/
+       │  └── ingress.yaml              # Ingress for argoCD
+       ├── kafka/                       # App: kafka
+       │  ├── kafka-cluster.yaml
+       │  ├── kafka-nodepool.yaml
+       │  ├── kafka-ui.yaml             # App: kafka-ui
+       │  └── topics.yaml
+       ├── postgres/
+       │  ├── pgadmin.yaml              # App: pgadmin
+       │  └── postgres.yaml             # App: postgres
+       └── kustomization.yaml           # Main kustomize manage cluster
 ```
 
 ---
@@ -163,3 +163,33 @@ kubectl logs -n backend -l app=backend --tail=20
 # Consumer Logs
 kubectl logs -n consumer -l app=consumer --tail=20
 ```
+
+---
+
+## 🔮 Future Improvements
+
+To elevate this platform to a production-grade enterprise standard, the following enhancements are proposed:
+
+### 1. Advanced Security with HashiCorp Vault & External Secrets
+**Current State:** Secrets (database credentials, API keys) are currently managed via Kustomize `secretGenerator` or Kubernetes native Secrets. While functional for development, this exposes secrets in the cluster state or requires manual management.
+
+**Proposed Solution:** Implement a **"Secret Zero"** architecture using:
+* **HashiCorp Vault:** To serve as the centralized, encrypted source of truth for all secrets.
+* **External Secrets Operator (ESO):** To automatically fetch secrets from Vault and inject them into Kubernetes Native Secrets.
+
+**Benefits:**
+* **Rotation:** Automated rotation of database passwords without restarting pods.
+* **Audit:** Centralized logging of who accessed which secret and when.
+* **GitOps Compliance:** No sensitive data ever touches the Git repository, not even in encrypted formats (like Sealed Secrets).
+
+### 2. Infrastructure as Code (IaC) with Terraform
+**Current State:** The cluster bootstrapping (Kind creation) and initial tooling installation (ArgoCD via Helm) are currently performed using imperative shell scripts. This is prone to human error and difficult to replicate exactly across different environments (Dev, Staging, Prod).
+
+**Proposed Solution:** adopt **Terraform** or **OpenTofu** to provision the entire bootstrapping layer.
+* Use the **Kind Provider** to spin up the cluster configuration.
+* Use the **Helm Provider** to install the initial ArgoCD instance in a declarative manner.
+
+**Benefits:**
+* **State Management:** Terraform keeps track of what is installed. If a configuration changes, Terraform only applies the "Delta" (difference) rather than re-running the whole script.
+* **Idempotency:** Running the script 100 times results in the same stable state, preventing "configuration drift."
+* **Disaster Recovery:** The entire cluster infrastructure can be destroyed and recreated with a single command (`terraform apply`).
