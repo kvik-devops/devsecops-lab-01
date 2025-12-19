@@ -4,5 +4,6 @@ resources:
   - ../../base
   - argocd/ingress.yaml
   - postgres/postgres.yaml
+  - kafka/kafka-nodepool.yaml
   - kafka/kafka-cluster.yaml
   - kafka/topics.yaml

@@ -3,10 +3,11 @@ kind: Kafka
 metadata:
   name: kafka-cluster
   namespace: kafka
+  annotations:
+    strimzi.io/node-pools: "enabled"
 spec:
   kafka:
     version: 4.1.1
-    replicas: 1 # Single node for Kind
     listeners:
       - name: plain
         port: 9092
@@ -32,8 +33,6 @@ spec:
       # Security & Maintenance (from previous steps)
       auto.create.topics.enable: false
       log.cleaner.enable: true
-    storage:
-      type: ephemeral # Keep it light for Kind (Data is lost on restart)
     readinessProbe:
       initialDelaySeconds: 15
       timeoutSeconds: 5
