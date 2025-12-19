@@ -18,7 +18,6 @@ metadata:
   namespace: postgres
   labels:
     service: database
-    description: "PostgreSQL database for message persistence"
 spec:
   selector:
     matchLabels:
@@ -28,7 +27,6 @@ spec:
       labels:
         app: postgres
         service: database
-        description: "PostgreSQL database for message persistence"
     spec:
       containers:
         - name: postgres
