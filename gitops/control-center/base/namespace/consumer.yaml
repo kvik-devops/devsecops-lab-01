@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    kubernetes.io/metadata.name: consumer
+  annotations:
+    argocd.argoproj.io/sync-options: "Prune=false,Delete=false"
+  name: consumer
+spec:
+  finalizers:
+  - kubernetes

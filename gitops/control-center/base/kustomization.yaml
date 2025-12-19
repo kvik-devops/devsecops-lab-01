@@ -6,6 +6,7 @@ resources:
   - namespace/postgres.yaml
   - namespace/backend.yaml
   - namespace/frontend.yaml
+  - namespace/consumer.yaml
 
 configMapGenerator:
 - name: postgres-config
