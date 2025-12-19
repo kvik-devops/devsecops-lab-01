@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: control-center
+  namespace: argocd
+  labels: 
+    app: control-center
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/kvik-devops/devsecops-lab-01.git'
+    targetRevision: main
+    path: gitops/control-center/overlay/lab-dev-th
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true

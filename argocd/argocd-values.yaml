@@ -1,0 +1,42 @@
+
+server:
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    annotations:
+      nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+    hosts:
+      - argocd.localhost
+    paths:
+      - /
+
+configs:
+  params:
+    # Enable feature sync-wave
+    cm:
+      resource.customizations.health.argoproj.io_Application: |
+        hs = {}
+        hs.status = "Progressing"
+        hs.message = ""
+        if obj.status ~= nil then
+          if obj.status.health ~= nil then
+            hs.status = obj.status.health.status
+            if obj.status.health.message ~= nil then
+              hs.message = obj.status.health.message
+            end
+          end
+        end
+        return hs
+    # Disables internal TLS so Ingress can talk to it via HTTP
+    server.insecure: true
+
+# Disable High Availability components for a lightweight local lab
+redis-ha:
+  enabled: false
+controller:
+  replicas: 1
+repoServer:
+  replicas: 1
+server:
+  replicas: 1
