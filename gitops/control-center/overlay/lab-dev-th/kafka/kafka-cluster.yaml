@@ -40,16 +40,16 @@ spec:
     livenessProbe:
       initialDelaySeconds: 15
       timeoutSeconds: 5
-  zookeeper:
-    replicas: 1
-    storage:
-      type: ephemeral
-    readinessProbe:
-      initialDelaySeconds: 15
-      timeoutSeconds: 5
-    livenessProbe:
-      initialDelaySeconds: 15
-      timeoutSeconds: 5
+  # zookeeper:
+  #   replicas: 1
+  #   storage:
+  #     type: ephemeral
+  #   readinessProbe:
+  #     initialDelaySeconds: 15
+  #     timeoutSeconds: 5
+  #   livenessProbe:
+  #     initialDelaySeconds: 15
+  #     timeoutSeconds: 5
   entityOperator:
     topicOperator: {}
     userOperator: {}
