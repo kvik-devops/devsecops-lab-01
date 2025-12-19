@@ -8,6 +8,7 @@ resources:
   - kafka/kafka-nodepool.yaml
   - kafka/kafka-cluster.yaml
   - kafka/topics.yaml
+  - kafka/kafka-ui.yaml
   - app/backend
   - app/frontend
   - app/consumer
