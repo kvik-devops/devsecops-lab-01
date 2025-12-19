@@ -4,6 +4,8 @@ resources:
   - app/ingress-nginx.yaml
   - app/strimzi-operator.yaml
   - namespace/postgres.yaml
+  - namespace/backend.yaml
+  - namespace/frontend.yaml
 
 configMapGenerator:
 - name: postgres-config

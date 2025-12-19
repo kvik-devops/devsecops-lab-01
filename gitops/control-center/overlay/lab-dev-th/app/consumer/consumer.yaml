@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: consumer
+  namespace: consumer
+  labels:
+    app: consumer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: consumer
+  template:
+    metadata:
+      labels:
+        app: consumer
+    spec:
+      containers:
+        - name: consumer
+          image: conicle/dso-exam-01-backend:v1.0.1
+          command: ["./main", "consume"]
+          args:
+            - "--brokers=$(KAFKA_BROKERS)"
+            - "--group-id=$(CONSUMER_GROUP)"
+            - "--message-topic=$(MESSAGE_TOPIC)"
+            - "--notify-topic=$(NOTIFY_TOPIC)"
+            - "--db-conn=$(DB_CONN)"
+          envFrom:
+            - configMapRef:
+                name: app-config
+            - secretRef:
+                name: app-secrets

@@ -1,0 +1,27 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: app-init
+  annotations:
+    argocd.argoproj.io/hook: Sync
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+spec:
+  template:
+    spec:
+      containers:
+        - name: init
+          image: conicle/dso-exam-01-backend:v1.0.1
+          command: ["./main", "init"]
+          args:
+            - "--brokers=$(KAFKA_BROKERS)"
+            - "--topics=$(MESSAGE_TOPIC),$(NOTIFY_TOPIC)"
+            - "--partitions=3"
+            - "--replication-factor=1"
+            - "--init-db"
+            - "--db-conn=$(DB_CONN)"
+          envFrom:
+            - configMapRef:
+                name: app-config
+            - secretRef:
+                name: app-secrets
+      restartPolicy: OnFailure

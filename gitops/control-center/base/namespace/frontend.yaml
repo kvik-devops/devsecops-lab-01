@@ -2,10 +2,10 @@ apiVersion: v1
 kind: Namespace
 metadata:
   labels:
-    kubernetes.io/metadata.name: kafka
+    kubernetes.io/metadata.name: frontend
   annotations:
     argocd.argoproj.io/sync-options: "Prune=false,Delete=false"
-  name: kafka
+  name: frontend
 spec:
   finalizers:
   - kubernetes
