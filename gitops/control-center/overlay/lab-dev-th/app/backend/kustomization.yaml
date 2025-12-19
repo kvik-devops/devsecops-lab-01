@@ -19,3 +19,6 @@ secretGenerator:
 - name: app-secrets
   literals:
     - DB_CONN=postgres://postgres:postgres@postgres.postgres.svc.cluster.local:5432/messages?sslmode=disable
+
+generatorOptions:
+  disableNameSuffixHash: true
