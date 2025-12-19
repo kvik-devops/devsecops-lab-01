@@ -3,5 +3,4 @@ kind: Kustomization
 resources:
   - ../../base
   - argocd/ingress.yaml
-  # - namespace/ingress-nginx.yaml
-  # - app/ingress-nginx.yaml
+  - postgres/postgres.yaml
