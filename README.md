@@ -75,13 +75,15 @@ kubectl apply -f values.yaml
 
 Once all pods are running, access the services locally via your browser.
 
-| Service                 | URL                                                       | Credentials (If any) |
-|:------------------------|:----------------------------------------------------------| :--- |
-| **Main App (frontend)** | [http://message.localhost](http://message.localhost)      | - |
-| **Main App (backend)**  | [http://message.localhost/api/](http://message.localhost) | - |
-| **ArgoCD**              | [http://argocd.localhost](http://argocd.localhost)        | `admin` / *(Get password via CLI)* |
-| **Kafka UI**            | [http://kafka.localhost](http://kafka.localhost)          | - |
-| **PgAdmin**             | [http://pgadmin.localhost](http://pgadmin.localhost)      | `admin@admin.com` / `admin` |
+| Service                 | URL                                                                  | Credentials (If any)               |
+|:------------------------|:---------------------------------------------------------------------|:-----------------------------------|
+| **Main App (frontend)** | [http://message.localhost](http://message.localhost)                 | -                                  |
+| **Main App (backend)**  | [http://message.localhost/api/](http://message.localhost/api/)       | -                                  |
+| **Main App (backend)**  | [http://message.localhost/events/](http://message.localhost/events/) | -                                  |
+| **Main App (backend)**  | [http://message.localhost/health/](http://message.localhost/health/) | -                                  |
+| **ArgoCD**              | [http://argocd.localhost](http://argocd.localhost)                   | `admin` / *(Get password via CLI)* |
+| **Kafka UI**            | [http://kafka.localhost](http://kafka.localhost)                     | -                                  |
+| **PgAdmin**             | [http://pgadmin.localhost](http://pgadmin.localhost)                 | `admin@admin.com` / `admin`        |
 
 > **Note:** If `*.localhost` domains do not resolve, add `127.0.0.1 message.localhost argocd.localhost` to your `/etc/hosts` file.
 
