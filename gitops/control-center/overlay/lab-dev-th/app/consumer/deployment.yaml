@@ -5,6 +5,8 @@ metadata:
   namespace: consumer
   labels:
     app: consumer
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
 spec:
   replicas: 1
   selector:

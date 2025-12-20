@@ -5,6 +5,7 @@ metadata:
     kubernetes.io/metadata.name: frontend
   annotations:
     argocd.argoproj.io/sync-options: "Prune=false,Delete=false"
+    argocd.argoproj.io/sync-wave: "0"
   name: frontend
 spec:
   finalizers:

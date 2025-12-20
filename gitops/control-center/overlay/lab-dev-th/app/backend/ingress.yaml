@@ -5,6 +5,7 @@ metadata:
   namespace: backend
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$1
+    argocd.argoproj.io/sync-wave: "0"
 spec:
   ingressClassName: nginx
   rules:

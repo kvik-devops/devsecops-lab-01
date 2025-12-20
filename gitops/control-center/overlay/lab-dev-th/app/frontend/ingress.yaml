@@ -3,6 +3,8 @@ kind: Ingress
 metadata:
   name: frontend-ingress
   namespace: frontend
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
 spec:
   ingressClassName: nginx
   rules:

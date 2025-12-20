@@ -5,6 +5,7 @@ metadata:
     kubernetes.io/metadata.name: postgres
   annotations:
     argocd.argoproj.io/sync-options: "Prune=false,Delete=false"
+    argocd.argoproj.io/sync-wave: "0"
   name: postgres
 spec:
   finalizers:
