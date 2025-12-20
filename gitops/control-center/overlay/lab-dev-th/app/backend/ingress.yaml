@@ -18,7 +18,7 @@ spec:
                 name: backend
                 port:
                   number: 8080
-          - path: /event
+          - path: /events
             pathType: Prefix
             backend:
               service:
