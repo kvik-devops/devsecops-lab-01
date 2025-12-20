@@ -6,7 +6,7 @@ metadata:
   labels:
     service: database
   annotations:
-    argocd.argoproj.io/sync-wave: "10"
+    argocd.argoproj.io/sync-wave: "0"
 spec:
   accessModes: ["ReadWriteOnce"]
   resources:
@@ -21,7 +21,7 @@ metadata:
   labels:
     service: database
   annotations:
-    argocd.argoproj.io/sync-wave: "0"
+    argocd.argoproj.io/sync-wave: "10"
 spec:
   selector:
     matchLabels:
@@ -78,7 +78,7 @@ metadata:
   labels:
     service: database
   annotations:
-    argocd.argoproj.io/sync-wave: "0"
+    argocd.argoproj.io/sync-wave: "10"
 spec:
   selector:
     app: postgres
