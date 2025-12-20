@@ -18,3 +18,17 @@ spec:
                 name: backend
                 port:
                   number: 8080
+          - path: /event
+            pathType: Prefix
+            backend:
+              service:
+                name: backend
+                port:
+                  number: 8080
+          - path: /health
+            pathType: Prefix
+            backend:
+              service:
+                name: backend
+                port:
+                  number: 8080
