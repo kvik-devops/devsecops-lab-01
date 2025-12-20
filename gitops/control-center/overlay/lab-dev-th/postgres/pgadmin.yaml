@@ -6,7 +6,7 @@ metadata:
   labels:
     app: pgadmin
   annotations:
-    argocd.argoproj.io/sync-wave: "20"
+    argocd.argoproj.io/sync-wave: "10"
 spec:
   replicas: 1
   selector:
