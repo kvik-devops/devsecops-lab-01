@@ -35,7 +35,7 @@ Create the Kind cluster with the required port mappings (80/443 for Ingress).
 Config file location : `kind/kind-config.yaml`
 
 ```bash
-kind create cluster --config kind-config.yaml
+kind create cluster --name devsecops-lab --config kind-config.yaml
 ```
 
 Optional : export kubeconfig for using Len application
