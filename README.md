@@ -50,7 +50,7 @@ Config file location : `argocd/argocd-values.yaml`
 
 ```bash
 # Add the ArgoCD Helm repo
-helm repo add argo [https://argoproj.github.io/argo-helm](https://argoproj.github.io/argo-helm)
+helm repo add argo https://argoproj.github.io/argo-helm
 helm repo update
 
 # Install ArgoCD
