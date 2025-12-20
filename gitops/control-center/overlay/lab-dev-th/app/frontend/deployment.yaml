@@ -20,6 +20,14 @@ spec:
       containers:
         - name: frontend
           image: conicle/dso-exam-01-frontend:v1.0.1
+          # patch the JS files
+          command: [ "/bin/sh", "-c" ]
+          args:
+            - >-
+              echo "Patching Next.js frontend..." &&
+              find .next -type f -name "*.js" -exec sed -i 's|http://localhost:8080|http://message.localhost|g' {} + &&
+              echo "Patch complete. Starting Bun..." &&
+              bun run start
           env:
             - name: NODE_ENV
               value: production
