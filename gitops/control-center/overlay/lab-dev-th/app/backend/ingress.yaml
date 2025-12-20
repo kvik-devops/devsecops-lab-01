@@ -4,7 +4,7 @@ metadata:
   name: backend-ingress
   namespace: backend
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /$1
+#    nginx.ingress.kubernetes.io/rewrite-target: /$1
     argocd.argoproj.io/sync-wave: "20"
 spec:
   ingressClassName: nginx
@@ -12,7 +12,7 @@ spec:
     - host: message.localhost
       http:
         paths:
-          - path: /api/(.*)
+          - path: /api
             pathType: Prefix
             backend:
               service:
